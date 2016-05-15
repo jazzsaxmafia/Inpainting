@@ -157,11 +157,15 @@ for epoch in range(n_epochs):
                     rec_con[y:y+64, x:x+64] = rec_hid
                     cv2.imwrite( os.path.join(result_path, 'img_'+str(ii)+'.'+str(int(iters/100))+'.jpg'), rec_con)
                     ii += 1
-                    if ii > 30: break
+                    if ii > 50: break
 
                 if iters == 0:
-                    for crop in test_crops:
-                        cv2.imwrite( os.path.join(result_path, 'img_'+str(ii)+'.ori.jpg'), crop)
+                    ii = 0
+                    for test_image in test_images:
+                        test_image = (255. * (test_image+1)/2.).astype(int)
+                        cv2.imwrite( os.path.join(result_path, 'img_'+str(ii)+'.ori.jpg'), test_image)
+                        ii += 1
+                        if ii > 50: break
 
             print "========================================================================"
             print bn1_val.max(), bn1_val.min()
