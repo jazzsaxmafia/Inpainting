@@ -12,8 +12,8 @@ learning_rate_val = 0.0003
 weight_decay_rate =  0.00001
 momentum = 0.9
 batch_size = 500
-lambda_recon = 0.9
-lambda_adv = 0.1
+lambda_recon = 0.99
+lambda_adv = 0.01
 
 overlap_size = 7
 hiding_size = 64
@@ -72,8 +72,8 @@ mask_recon = tf.concat(2, [mask_recon]*3)
 mask_overlap = 1 - mask_recon
 
 loss_recon_ori = tf.square( images_hiding - reconstruction )
-loss_recon_center = tf.reduce_mean(tf.sqrt( 1e-5 + tf.reduce_sum(loss_recon_ori * mask_recon, [1,2,3])))  # Loss for non-overlapping region
-loss_recon_overlap = tf.reduce_mean(tf.sqrt( 1e-5 + tf.reduce_sum(loss_recon_ori * mask_overlap, [1,2,3]))) * 10.# Loss for overlapping region
+loss_recon_center = tf.reduce_mean(tf.sqrt( 1e-5 + tf.reduce_sum(loss_recon_ori * mask_recon, [1,2,3]))) / 10.  # Loss for non-overlapping region
+loss_recon_overlap = tf.reduce_mean(tf.sqrt( 1e-5 + tf.reduce_sum(loss_recon_ori * mask_overlap, [1,2,3]))) # Loss for overlapping region
 loss_recon = loss_recon_center + loss_recon_overlap
 
 loss_adv_D = tf.reduce_mean( tf.nn.sigmoid_cross_entropy_with_logits(adversarial_all, labels_D))
@@ -161,8 +161,9 @@ for epoch in range(n_epochs):
 
                 if iters == 0:
                     ii = 0
-                    for test_image in test_images:
+                    for test_image in test_images_ori:
                         test_image = (255. * (test_image+1)/2.).astype(int)
+                        test_image[32:32+64,32:32+64] = 0
                         cv2.imwrite( os.path.join(result_path, 'img_'+str(ii)+'.ori.jpg'), test_image)
                         ii += 1
                         if ii > 50: break
