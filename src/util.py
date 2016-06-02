@@ -6,12 +6,14 @@ import ipdb
 
 import numpy as np
 
-def load_image( path, height=128, width=128 ):
+#def load_image( path, height=128, width=128 ):
+def load_image( path, pre_height=146, pre_width=146, height=128, width=128 ):
 
     try:
         img = skimage.io.imread( path ).astype( float )
     except:
         return None
+
     img /= 255.
 
     if img is None: return None
@@ -25,7 +27,12 @@ def load_image( path, height=128, width=128 ):
     yy = int((img.shape[0] - short_edge) / 2)
     xx = int((img.shape[1] - short_edge) / 2)
     crop_img = img[yy:yy+short_edge, xx:xx+short_edge]
-    resized_img = skimage.transform.resize( crop_img, [height,width] )
+    resized_img = skimage.transform.resize( crop_img, [pre_height,pre_width] )
+
+    rand_y = np.random.randint(0, pre_height - height)
+    rand_x = np.random.randint(0, pre_width - width)
+
+    resized_img = resized_img[ rand_y:rand_y+height, rand_x:rand_x+width, : ]
 
     return (resized_img * 2)-1 #(resized_img - 127.5)/127.5
 

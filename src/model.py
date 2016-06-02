@@ -74,7 +74,7 @@ class Model():
 
         return output_reshape
 
-    def leaky_relu(self, bottom, leak=0.2):
+    def leaky_relu(self, bottom, leak=0.1):
         return tf.maximum(leak*bottom, bottom)
 
     def batchnorm(self, bottom, is_train, epsilon=1e-8, name=None):

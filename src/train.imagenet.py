@@ -12,8 +12,8 @@ learning_rate_val = 0.0003
 weight_decay_rate =  0.00001
 momentum = 0.9
 batch_size = 500
-lambda_recon = 0.99
-lambda_adv = 0.01
+lambda_recon = 0.9
+lambda_adv = 0.1
 
 overlap_size = 7
 hiding_size = 64
@@ -199,16 +199,16 @@ for epoch in range(n_epochs):
                     })
 
 
-        _, loss_D_val, adv_pos_val, adv_neg_val = sess.run(
-                [train_op_D, loss_D, adversarial_pos, adversarial_neg],
-                feed_dict={
-                    images_tf: images,
-                    images_hiding: crops,
-                    learning_rate: learning_rate_val / 10.,
-                    is_train: True
-                        })
-
         if iters % 10 == 0:
+            _, loss_D_val, adv_pos_val, adv_neg_val = sess.run(
+                    [train_op_D, loss_D, adversarial_pos, adversarial_neg],
+                    feed_dict={
+                        images_tf: images,
+                        images_hiding: crops,
+                        learning_rate: learning_rate_val,
+                        is_train: True
+                            })
+
             print "Iter:", iters, "Gen Loss:", loss_G_val, "Recon Loss:", loss_recon_val, "Gen ADV Loss:", loss_adv_G_val,  "Dis Loss:", loss_D_val, "||||", adv_pos_val.mean(), adv_neg_val.min(), adv_neg_val.max()
 
         iters += 1
