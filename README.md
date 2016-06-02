@@ -14,5 +14,3 @@
 ![alt tag](https://github.com/jazzsaxmafia/Impainting/blob/master/show/img_5.ori.jpg) ![alt tag](https://github.com/jazzsaxmafia/Impainting/blob/master/show/img_5.jpg)
 
 ![alt tag](https://github.com/jazzsaxmafia/Impainting/blob/master/show/img_6.ori.jpg) ![alt tag](https://github.com/jazzsaxmafia/Impainting/blob/master/show/img_6.jpg)
-
-![alt tag](https://github.com/jazzsaxmafia/Impainting/blob/master/show/img_7.ori.jpg) ![alt tag](https://github.com/jazzsaxmafia/Impainting/blob/master/show/img_7.jpg)
