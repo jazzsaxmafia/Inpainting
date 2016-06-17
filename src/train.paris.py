@@ -8,7 +8,7 @@ from model import *
 from util import *
 
 n_epochs = 10000
-learning_rate_val = 0.0002
+learning_rate_val = 0.002
 weight_decay_rate =  0.00001
 momentum = 0.9
 batch_size = 100
